@@ -1,19 +1,26 @@
-
 import java.util.Scanner;
-
-public class EvenOdd {
+public class EvenOdd1 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc=new Scanner(System.in);
 
-        System.out.print("Enter a number: ");
-        int number = scanner.nextInt();
-
-        if (number % 2 == 0) {
-            System.out.println(number + " is an even number.");
-        } else {
-            System.out.println(number + " is an odd number.");
+        System.out.println("Enter Number :");
+        int number= sc.nextInt();
+        if(number%2==0)
+        {
+            System.out.println(number +" is Even Number");
+        }
+        else
+        {
+            System.out.println(number +" is Odd Number");
         }
 
-        scanner.close();
+        
+        System.out.println("Using ternary Check :");
+        int num=sc.nextInt();
+       // int res=(num%2==0? "Even":"Odd"); wrong because even or odd is string not int..res stores string even or odd
+        String res=(num%2==0? "Even":"Odd");
+        System.out.println(res);
+        sc.close();
     }
+
 }
