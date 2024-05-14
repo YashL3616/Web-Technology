@@ -1,47 +1,71 @@
+//Steps
+/*
+1.instal intellij with jdk kit
+Java Development Kit (JDK):
+
+Ensure you have JDK installed. You can download it from the Oracle website or use OpenJDK.
+
+MySQL Database:
+Install MySQL Server on your machine. You can download it from the MySQL website. https://dev.mysql.com/downloads/mysql/
+
+MySQL Connector/J:
+Download the MySQL Connector/J (JDBC driver) from the MySQL website. https://dev.mysql.com/downloads/connector/j/
+
+
+2. Add .jar file in settings directories in modules in intellij
+
+Create a db Yash in mysql cmd
+
+create a table student and insert temporary values 1 , "yash",19
+*/
+
+
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class JavaJDBC {
+public class JDBCConnec {
     public static void main(String[] args) {
-        try {
-            // Load MySQL JDBC driver
+        try{
+            //Load database
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish connection
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/JDBC", "root", "password"
+            //establish connection with db Yash
+            Connection connection=DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/Yash","root","password"
             );
 
-            // Create statement
-            Statement statement = connection.createStatement();
+            //Create a statement obj
+            Statement statement=connection.createStatement();
 
-            // Select query
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM students");
-            System.out.println("Existing records:");
-            while (resultSet.next()) {
-                System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
+            //Load data in resSet
+            ResultSet resultSet=statement.executeQuery("SELECT * FROM students");
+            System.out.println("Existing set");
+
+            //retrieve
+            while (resultSet.next())
+            {
+                System.out.println(resultSet.getInt(1)+"|"+resultSet.getString(2)+"|"+resultSet.getString(3));
             }
 
-            // Update query
-            int updatedRows = statement.executeUpdate("UPDATE students SET name = 'Yash' WHERE id = 1");
-            System.out.println("Number of rows updated: " + updatedRows);
+            //queries
+            int insertCount=statement.executeUpdate("INSERT INTO students VALUES(2,'Ti',19)");
+            System.out.println("Inserted "+insertCount);
 
-            // Insert query
-            int insertedRows = statement.executeUpdate("INSERT INTO students (id, name, age) VALUES (4, 'Yash2', 19)");
-            System.out.println("Number of rows inserted: " + insertedRows);
+            int UpdateCount=statement.executeUpdate("UPDATE students SET age=18 WHERE id=1");
+            System.out.println("Updated "+UpdateCount);
 
-            // Delete query
-            int deletedRows = statement.executeUpdate("DELETE FROM students WHERE id = 2");
-            System.out.println("Number of rows deleted: " + deletedRows);
+            int DelCount=statement.executeUpdate("DELETE FROM students Where id=2");
+            System.out.println("Deleted "+DelCount);
 
-            // Close connection
+            //close
             connection.close();
         }
-        catch (Exception e) 
-          {
+
+        catch (Exception e)
+        {
             System.out.println(e);
         }
     }
